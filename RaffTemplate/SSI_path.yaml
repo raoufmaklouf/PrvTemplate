@@ -1,0 +1,21 @@
+id: SSI_detaction
+
+info:
+  name: SSI_detaction
+  author: raff
+  severity: high
+  description: SSI_detaction
+  reference: https://SSI_detaction
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/um6k%3C%21--esi%20%24%28QUERY_STRING%7BcountryCode%7D%29%20--%3E%3C%21--esx--%3Eekdi%26countryCode%3D%22%7D%7D%3Bprompt.call%28null%2Corigin%29%3B%2F%2FUS"
+     
+    matchers:
+      - type: word
+        words:
+          - 'um6k"}};prompt.call(null,origin);//US'
+        part: body
+
+# digest: 4b0a00483046022100d60dc51cb537067ff6eca1c394ad8c07ba4dbdaadb17984f72000e5993edcccf022100aadc1f2330b9f86addc6ecd8a283f2d57af8da34c7a8a9bea153c92730017824:922c64590222798bb761d5b6d8e72950

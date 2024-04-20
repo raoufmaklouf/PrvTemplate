@@ -1,0 +1,128 @@
+id: reflacted_CP
+info:
+  name: Compare Response Codes
+  author: raff
+  severity: high
+  description: Fuzzing 
+
+http:
+  - raw:
+      - |
+        GET {{BaseURL}}?cachetest1=H1raff1 HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET {{BaseURL}}?cachetest2=H1raff2 HTTP/1.0
+        Host: {{Hostname}} 
+        Accept: xrafftestcachep
+        Accept-Charset: xrafftestcachep
+        Accept-Encoding: xrafftestcachep
+        Accept-Language: xrafftestcachep
+        Accept-Datetime: xrafftestcachep
+        Access-Control-Request-Method: xrafftestcachep
+        Access-Control-Request-Headers: xrafftestcachep
+        Authorization: xrafftestcachep
+        Cache-Control: xrafftestcachep
+        Connection: xrafftestcachep
+        Content-Length: xrafftestcachep
+        Content-Type: xrafftestcachep
+        Cookie: xrafftestcachep
+        Date: xrafftestcachep
+        DNT: : xrafftestcachep
+        Expect: xrafftestcachep
+        Forwarded: xrafftestcachep
+        From: xrafftestcachep
+        Host: xrafftestcachep
+        If-Match: xrafftestcachep
+        If-Modified-Since: xrafftestcachep
+        If-None-Match: xrafftestcachep
+        If-Range: xrafftestcachep
+        If-Unmodified-Since: xrafftestcachep
+        Max-Forwards: xrafftestcachep
+        Origin: xrafftestcachep
+        Pragma: xrafftestcachep
+        Proxy-Authorization: xrafftestcachep
+        Range: xrafftestcachep
+        Referer: xrafftestcachep
+        TE: xrafftestcachep
+        Upgrade: xrafftestcachep
+        User-Agent: xrafftestcachep
+        Via: xrafftestcachep
+        Warning: xrafftestcachep
+        X-Requested-With: xrafftestcachep
+        X-Forwarded-For: xrafftestcachep
+        X-Forwarded-Host: xrafftestcachep
+        X-Forwarded-Proto: xrafftestcachep
+        X-Http-Method-Override: xrafftestcachep
+        X-ATT-DeviceId: xrafftestcachep
+        X-Wap-Profile: xrafftestcachep
+        X-UIDH: xrafftestcachep
+        X-Csrf-Token: xrafftestcachep
+        X-Request-ID: xrafftestcachep
+        X-Correlation-ID: xrafftestcachep
+        X-Real-IP: xrafftestcachep
+        X-Client-IP: xrafftestcachep
+        X-Client-Data: xrafftestcachep
+        X-Content-Type-Options: xrafftestcachep
+      - |
+        GET {{BaseURL}}?cachetest2=H1raff2 HTTP/1.0
+        Host: {{Hostname}}
+        Accept: xrafftestcachep
+        Accept-Charset: xrafftestcachep
+        Accept-Encoding: xrafftestcachep
+        Accept-Language: xrafftestcachep
+        Accept-Datetime: xrafftestcachep
+        Access-Control-Request-Method: xrafftestcachep
+        Access-Control-Request-Headers: xrafftestcachep
+        Authorization: xrafftestcachep
+        Cache-Control: xrafftestcachep
+        Connection: xrafftestcachep
+        Content-Length: xrafftestcachep
+        Content-Type: xrafftestcachep
+        Cookie: xrafftestcachep
+        Date: xrafftestcachep
+        DNT: : xrafftestcachep
+        Expect: xrafftestcachep
+        Forwarded: xrafftestcachep
+        From: xrafftestcachep
+        Host: xrafftestcachep
+        If-Match: xrafftestcachep
+        If-Modified-Since: xrafftestcachep
+        If-None-Match: xrafftestcachep
+        If-Range: xrafftestcachep
+        If-Unmodified-Since: xrafftestcachep
+        Max-Forwards: xrafftestcachep
+        Origin: xrafftestcachep
+        Pragma: xrafftestcachep
+        Proxy-Authorization: xrafftestcachep
+        Range: xrafftestcachep
+        Referer: xrafftestcachep
+        TE: xrafftestcachep
+        Upgrade: xrafftestcachep
+        User-Agent: xrafftestcachep
+        Via: xrafftestcachep
+        Warning: xrafftestcachep
+        X-Requested-With: xrafftestcachep
+        X-Forwarded-For: xrafftestcachep
+        X-Forwarded-Host: xrafftestcachep
+        X-Forwarded-Proto: xrafftestcachep
+        X-Http-Method-Override: xrafftestcachep
+        X-ATT-DeviceId: xrafftestcachep
+        X-Wap-Profile: xrafftestcachep
+        X-UIDH: xrafftestcachep
+        X-Csrf-Token: xrafftestcachep
+        X-Request-ID: xrafftestcachep
+        X-Correlation-ID: xrafftestcachep
+        X-Real-IP: xrafftestcachep
+        X-Client-IP: xrafftestcachep
+        X-Client-Data: xrafftestcachep
+        X-Content-Type-Options: xrafftestcachep      
+      - |
+        GET {{BaseURL}}?cachetest2=H1raff2 HTTP/1.1
+        Host: {{Hostname}}
+    req-condition: true
+
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - 'contains(body_4, "xrafftestcachep")'

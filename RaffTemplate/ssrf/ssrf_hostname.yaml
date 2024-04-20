@@ -1,0 +1,18 @@
+id: ssrf_host_name
+info:
+  name: ssrf_post
+  author: raff
+  severity: high
+  description: Fuzzing 
+
+requests:
+  - raw:
+      - |
+        GET {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}.334a4s96q01tdl14a69ilngxnotih85x.oastify.com
+    matchers:
+      - type: word
+        words:
+          - "ztax69m3l4kgb1ur44xn2zzjmgigz"
+        part: body
+

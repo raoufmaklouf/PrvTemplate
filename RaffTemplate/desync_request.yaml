@@ -1,0 +1,30 @@
+id: desync_request
+info:
+  name: desync_request
+  author: raff
+  severity: high
+  tags: smuggling
+
+
+http:
+  - raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36
+        Connection: close
+        Accept-Encoding: gzip
+
+        GET /robots.txt HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36
+        Connection: close
+        Accept-Encoding: gzip
+    unsafe: true
+    matchers:
+      - type: dsl
+        dsl:
+          - 'contains(body, "HTTP/1.1") || contains(body, "HTTP/2")'
+          - 'contains(body, "HTTP/2")'
+        condition: and
+
